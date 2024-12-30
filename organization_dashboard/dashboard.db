@@ -1,0 +1,19 @@
+{% for org in organizations %}
+<div>
+    <h2>{{ org.name }}</h2>
+    <p>{{ org.email }} | {{ org.location }}</p>
+    {% for team in org.teams %}
+        <h3>Team: {{ team.name }}</h3>
+        <ul>
+        {% for member in team.members %}
+            <li>
+                {{ member.name }} ({{ member.email }}) - 
+                <span style="color: {{ 'green' if member.status == 'Image Uploaded' else 'red' }}">
+                    {{ member.status }}
+                </span>
+            </li>
+        {% endfor %}
+        </ul>
+    {% endfor %}
+</div>
+{% endfor %}

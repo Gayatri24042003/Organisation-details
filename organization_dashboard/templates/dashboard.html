@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Dashboard</h1>
+
+    {% for org in organizations %}
+    <div>
+        <h2>Organization: {{ org.name }}</h2>
+        <p>Location: {{ org.location }}</p>
+        {% for team in org.teams %}
+            <h3>Team: {{ team.name }} (Lead: {{ team.lead }})</h3>
+            <ul>
+                {% for member in team.members %}
+                <li>
+                    <strong>{{ member.name }}</strong> ({{ member.email }}) - ID: {{ member.id }}<br>
+                    {% if member.profile_picture %}
+                        <img src="{{ member.profile_picture }}" alt="Profile Picture" style="width:100px;height:100px;"><br>
+                    {% endif %}
+                    Status: <span style="color: {{ 'green' if member.status == 'Image Uploaded' else 'red' }}">
+                        {{ member.status }}
+                    </span>
+                </li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    </div>
+    <hr>
+    {% endfor %}
+</body>
+</html>
